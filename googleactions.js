@@ -59,27 +59,6 @@ function getAction() {
     return action.toLowerCase();
 }
 
-// Check if SN has a device
-function isADevice(customerId, sn) {
-    var optionalArgs = {
-        customer: customerId,
-        projection: 'FULL',
-        query: sn
-    };
-
-    var returnValue = true;
-
-    try {
-        var device = AdminDirectory.Chromeosdevices.list(customerId, optionalArgs);
-        var chromebook = JSON.parse(device.chromeosdevices);
-
-    } catch (e) {
-        returnValue = false;
-    }
-
-    return returnValue;
-}
-
 // Pull Device info using SN from API
 function getDeviceBySN(customerId, sn) {
     var optionalArgs = {
@@ -119,6 +98,28 @@ function getLastKnownUser(chromebook) {
 
     return email;
 }
+
+// Check if SN has a device
+function isADevice(customerId, sn) {
+    var optionalArgs = {
+        customer: customerId,
+        projection: 'FULL',
+        query: sn
+    };
+
+    var returnValue = true;
+
+    try {
+        var device = AdminDirectory.Chromeosdevices.list(customerId, optionalArgs);
+        var chromebook = JSON.parse(device.chromeosdevices);
+
+    } catch (e) {
+        returnValue = false;
+    }
+
+    return returnValue;
+}
+
 
 function runAction(action, customerId, deviceId, chromebook) {
 
